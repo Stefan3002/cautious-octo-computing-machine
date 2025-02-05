@@ -1,0 +1,20 @@
+.header {
+  color: whitesmoke;
+  background: #0D1821;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+.header-inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: #2D3142;
+  padding: 0 2rem;
+}
+.header-inner h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+/*# sourceMappingURL=header.css.map */
