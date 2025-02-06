@@ -1,3 +1,9 @@
-
+.most-wanted-list-ul {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+}
 
 /*# sourceMappingURL=most-wanted-list.css.map */

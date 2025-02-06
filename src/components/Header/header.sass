@@ -1,13 +1,19 @@
 @import '../../../variables'
 
 .header
+  display: flex
   color: $text-color
+  padding: 1rem
   background: $dark-color
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2)
+.header-inner-left
+  width: 10%
 .header-inner
+  width: 100%
   h1
     font-size: 2rem
     margin: 0
+  border-radius: 10px
   display: flex
   flex-direction: row
   justify-content: space-between
@@ -15,3 +21,5 @@
   background: $lighter-color
   padding: 0 2rem
 
+.logo
+  width: 80px

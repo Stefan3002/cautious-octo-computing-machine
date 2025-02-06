@@ -1,10 +1,18 @@
 .header {
+  display: flex;
   color: whitesmoke;
+  padding: 1rem;
   background: #0D1821;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
 
+.header-inner-left {
+  width: 10%;
+}
+
 .header-inner {
+  width: 100%;
+  border-radius: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -15,6 +23,10 @@
 .header-inner h1 {
   font-size: 2rem;
   margin: 0;
+}
+
+.logo {
+  width: 80px;
 }
 
 /*# sourceMappingURL=header.css.map */
