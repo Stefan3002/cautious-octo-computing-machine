@@ -1,0 +1,15 @@
+.custom-button {
+  font-family: "Poppins", serif;
+  background: #2D3142;
+  color: whitesmoke;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 10px;
+  transition: all 0.15s ease-in-out;
+}
+.custom-button:focus, .custom-button:hover {
+  background: #0D1821;
+  transition: all 0.15s ease-in-out;
+}
+
+/*# sourceMappingURL=button.css.map */
