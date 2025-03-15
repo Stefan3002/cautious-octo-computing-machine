@@ -46,7 +46,7 @@ pipeline{
         stage ('Move to Nginx') {
             steps {
                 sh 'sudo mkdir -p /var/www/html/octopus'
-                sh 'sudo mv build /var/www/html/octopus'
+                sh 'sudo mv build /var/www/html/octopus/build'
             }
         }
         stage ('Configure Nginx'){
