@@ -61,7 +61,17 @@ pipeline{
                 script {
                     def configFile = '''
                        server {
-                        listen 80;
+                           listen 80;
+                                location / {
+                                return 301 https://85.120.206.53$request_uri;
+                        }
+
+                       }
+                       server {
+                        listen 443 ssl http2;
+                        include /etc/nginx/ssl/ssl_all_sites.conf;
+                        include /etc/nginx/ssl/ssl_codelighthouse.conf;
+
                         root /var/www/html/octopus/dist;
                         index index.html;
 
