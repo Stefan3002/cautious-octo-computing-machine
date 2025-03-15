@@ -27,6 +27,7 @@ pipeline{
 
                     }catch(Exception e) {
                         echo 'Failed to install npm and node js'
+                        error 'Failed to install npm and node js'
                     }
                 }
             }
