@@ -45,24 +45,24 @@ pipeline{
         }
         stage ('Move to Nginx') {
             steps {
-                sh 'sudo mkdir -p /var/www/html/octopus/build'
-                sh 'sudo mv dist /var/www/html/octopus/build'
+                sh 'sudo mkdir -p /var/www/html/octopus'
+                sh 'sudo mv dist /var/www/html/octopus'
             }
         }
         stage ('Configure Nginx'){
             steps {
                 script {
-                    def configFile = """
+                    def configFile = '''
                        server {
                         listen 80;
-                        root /var/www/html/octopus/build;
+                        root /var/www/html/octopus/dist;
                         index index.html;
 
                         location / {
                             try_files $uri /index.html;
                         }
                        }
-                    """
+                    '''
                     writeFile file: '/etc/nginx/sites-available/octopus.conf', text: configFile
                 }
                 sh 'sudo ln -s /etc/nginx/sites-available/octopus.conf /etc/nginx/sites-enabled'
