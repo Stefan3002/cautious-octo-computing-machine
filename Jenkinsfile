@@ -71,8 +71,11 @@ pipeline{
                        }
                     '''
                     writeFile file: '/etc/nginx/sites-available/octopus.conf', text: configFile
+                    def file = new File('/etc/nginx/sites-enabled/octopus.conf')
+
+                    if(!file.exists())
+                        sh 'sudo ln -s /etc/nginx/sites-available/octopus.conf /etc/nginx/sites-enabled'
                 }
-                sh 'sudo ln -s /etc/nginx/sites-available/octopus.conf /etc/nginx/sites-enabled'
             }
         }
         stage ('Restart Nginx') {
