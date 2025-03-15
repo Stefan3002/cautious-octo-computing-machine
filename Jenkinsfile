@@ -46,6 +46,13 @@ pipeline{
         stage ('Move to Nginx') {
             steps {
                 sh 'sudo mkdir -p /var/www/html/octopus'
+                script {
+                    try {
+                        sh 'sudo rm -rf /var/www/html/octopus/dist'
+                    }catch(Exception e) {
+                        echo 'Folder is empty'
+                    }
+                }
                 sh 'sudo mv dist /var/www/html/octopus'
             }
         }
