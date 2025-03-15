@@ -9,6 +9,28 @@ pipeline{
                 checkout scm
             }
         }
+        stage('Install npm and node js'){
+            steps {
+                script {
+                    try {
+                        try {
+                            sh 'npm -v'
+                            echo 'Already installed npm and node js'
+                        }catch(Exception e) {
+                            echo 'Installing npm and node js'
+                            sh '''
+                                sudo apt update
+                                sudo apt install nodejs -y
+                                sudo apt install npm -y
+                            '''
+                        }
+
+                    }catch(Exception e) {
+                        echo 'Failed to install npm and node js'
+                    }
+                }
+            }
+        }
         stage('Install Dependencies') {
             steps {
                 sh 'npm i'
