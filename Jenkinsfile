@@ -67,25 +67,29 @@ pipeline {
             }
         }
         stage('Install wget') {
-            script {
-                def wgetVersion = sh(script: 'wget --version', returnStatus: true)
-                if (wgetVersion != 0) {
-                    echo 'Installing wget'
-                    sh 'sudo apt install wget'
-                } else {
-                    echo 'Wget already installed'
+            steps {
+                script {
+                    def wgetVersion = sh(script: 'wget --version', returnStatus: true)
+                    if (wgetVersion != 0) {
+                        echo 'Installing wget'
+                        sh 'sudo apt install wget'
+                    } else {
+                        echo 'Wget already installed'
+                    }
                 }
             }
 
         }
         stage('Install gnupg') {
-            script {
-                def gnupgVersion = sh(script: 'gnupg --version', returnStatus: true)
-                if (gnupgVersion != 0) {
-                    echo 'Installing gnupg'
-                    sh 'sudo apt install gnupg'
-                } else {
-                    echo 'gnupg already installed'
+            steps {
+                script {
+                    def gnupgVersion = sh(script: 'gnupg --version', returnStatus: true)
+                    if (gnupgVersion != 0) {
+                        echo 'Installing gnupg'
+                        sh 'sudo apt install gnupg'
+                    } else {
+                        echo 'gnupg already installed'
+                    }
                 }
             }
 
