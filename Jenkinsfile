@@ -56,7 +56,7 @@ pipeline {
         stage('Install Semgrep'){
             steps {
                 script {
-                    def semgrepVersion = sh(script: 'semgrep -v', returnStatus: true)
+                    def semgrepVersion = sh(script: 'semgrep --version', returnStatus: true)
                     if (semgrepVersion != 0) {
                         echo 'Installing Semgrep'
                         sh 'sudo pip3 install semgrep'
@@ -74,14 +74,14 @@ pipeline {
                         sh 'semgrep scan --config="p/owasp-top-ten"'
                     }
                 }
-                stage('Security Vulnerabilities') {
-                    steps {
-                        sh 'semgrep scan --config="p/security"'
-                    }
-                }
                 stage('React Vulnerabilities') {
                     steps {
                         sh 'semgrep scan --config="p/react"'
+                    }
+                }
+                stage('JavaScript Vulnerabilities') {
+                    steps {
+                        sh 'semgrep scan --config="p/javascript"'
                     }
                 }
             }
