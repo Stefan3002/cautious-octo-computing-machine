@@ -66,6 +66,19 @@ pipeline {
                 }
             }
         }
+        stage('Install Trivy'){
+            steps {
+                script {
+                    def trivyVersion = sh(script: 'trivy --version', returnStatus: true)
+                    if (trivyVersion != 0) {
+                        echo 'Installing Trivy'
+                        sh 'sudo apt install trivy'
+                    } else {
+                        echo 'Trivy already installed'
+                    }
+                }
+            }
+        }
         stage('Analyzing Code') {
             failFast true
             parallel {
@@ -99,6 +112,12 @@ pipeline {
 
                     }
                 }
+                stage('Dependencies'){
+                    steps {
+                        sh 'trivy fs --scanners vuln,secret,misconfig .'
+                    }
+                }
+
             }
         }
         stage ('Move to Nginx') {
