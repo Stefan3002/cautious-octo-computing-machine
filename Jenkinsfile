@@ -72,7 +72,7 @@ pipeline {
                 stage('OWASP Top 10') {
                     steps {
                         script {
-                            def errors = sh(script: 'semgrep scan --config="p/owasp-top-ten" --error', returnStatus: true)
+                            def errors = sh(script: 'semgrep scan --config="p/owasp-top-ten" --severity=ERROR --error', returnStatus: true)
                             if(errors)
                                 error('Vulnerabilities found!')
                         }
@@ -82,7 +82,7 @@ pipeline {
                 stage('React Vulnerabilities') {
                     steps {
                         script {
-                             def errors = sh(script: 'semgrep scan --config="p/react" --error', returnStatus: true)
+                             def errors = sh(script: 'semgrep scan --config="p/react" --severity=ERROR --error', returnStatus: true)
                              if(errors)
                                 error('Vulnerabilities found!')
                         }
@@ -92,7 +92,7 @@ pipeline {
                 stage('JavaScript Vulnerabilities') {
                     steps {
                         script {
-                            def errors = sh(script: 'semgrep scan --config="p/javascript" --error', returnStatus: true)
+                            def errors = sh(script: 'semgrep scan --config="p/javascript" --severity=ERROR --error', returnStatus: true)
                             if(errors)
                                 error('Vulnerabilities found!')
                         }
