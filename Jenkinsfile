@@ -37,6 +37,49 @@ pipeline {
                 sh 'npm run build'
             }
         }
+        stage('Install pip3') {
+            steps {
+                script {
+                    def pipVersion = sh(script: 'pip3 -v', returnStatus: true)
+                    if (pipVersion != 0) {
+                        echo 'Installing pip3'
+                        sh '''
+                            sudo apt update
+                            sudo apt install python3-pip
+                        '''
+                    } else {
+                        echo 'pip3 already installed'
+                    }
+                }
+            }
+        }
+        stage('Install Semgrep'){
+            steps {
+                script {
+                    def semgrepVersion = sh(script: 'semgrep -v', returnStatus: true)
+                    if (semgrepVersion != 0) {
+                        echo 'Installing Semgrep'
+                        sh 'pip3 install semgrep'
+                    } else {
+                        echo 'Semgrep already installed'
+                    }
+                }
+            }
+        }
+        stage('Analyzing Code') {
+            failFast true
+            parallel {
+                stage('Code') {
+                    sh 'semgrep ci --code'
+                }
+                stage('Supply Chain') {
+                    sh 'semgrep ci --supply-chain'
+                }
+                stage('Secrets') {
+                    sh 'semgrep ci --secrets'
+                }
+            }
+        }
         stage ('Move to Nginx') {
             steps {
                 sh 'sudo mkdir -p /var/www/html/octopus'
