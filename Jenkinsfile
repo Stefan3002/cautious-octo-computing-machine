@@ -45,7 +45,7 @@ pipeline {
                         echo 'Installing pip3'
                         sh '''
                             sudo apt update
-                            sudo apt install python3-pip
+                            sudo apt install python3-pip -y
                         '''
                     } else {
                         echo 'pip3 already installed'
