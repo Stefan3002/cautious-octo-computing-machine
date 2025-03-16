@@ -71,17 +71,17 @@ pipeline {
             parallel {
                 stage('OWASP Top 10') {
                     steps {
-                        sh 'semgrep scan --config="p/owasp-top-ten" --severity=error'
+                        sh 'semgrep scan --config="p/owasp-top-ten" --severity=ERROR'
                     }
                 }
                 stage('React Vulnerabilities') {
                     steps {
-                        sh 'semgrep scan --config="p/react" --severity=error'
+                        sh 'semgrep scan --config="p/react" --severity=ERROR'
                     }
                 }
                 stage('JavaScript Vulnerabilities') {
                     steps {
-                        sh 'semgrep scan --config="p/javascript" --severity=error'
+                        sh 'semgrep scan --config="p/javascript" --severity=ERROR'
                     }
                 }
             }
