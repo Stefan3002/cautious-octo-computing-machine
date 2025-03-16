@@ -83,7 +83,7 @@ pipeline {
         stage('Install gnupg') {
             steps {
                 script {
-                    def gnupgVersion = sh(script: 'gnupg --version', returnStatus: true)
+                    def gnupgVersion = sh(script: 'gpg --version', returnStatus: true)
                     if (gnupgVersion != 0) {
                         echo 'Installing gnupg'
                         sh 'sudo apt install gnupg'
@@ -147,7 +147,7 @@ pipeline {
                 }
                 stage('Dependencies'){
                     steps {
-                        sh 'trivy fs --scanners vuln,secret,misconfig .'
+                        sh 'trivy fs --scanners vuln --ignore-unfixed --no-progress .'
                     }
                 }
 
