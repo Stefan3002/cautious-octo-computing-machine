@@ -71,17 +71,32 @@ pipeline {
             parallel {
                 stage('OWASP Top 10') {
                     steps {
-                        sh 'semgrep scan --config="p/owasp-top-ten" --no-suppress-errors'
+                        script {
+                            def errors = sh(script: 'semgrep scan --config="p/owasp-top-ten"', returnStatus: true)
+                            if(errors)
+                                error('Vulnerabilities found!')
+                        }
+
                     }
                 }
                 stage('React Vulnerabilities') {
                     steps {
-                        sh 'semgrep scan --config="p/react" --no-suppress-errors'
+                        script {
+                             def errors = sh(script: 'semgrep scan --config="p/react"', returnStatus: true)
+                             if(errors)
+                                error('Vulnerabilities found!')
+                        }
+
                     }
                 }
                 stage('JavaScript Vulnerabilities') {
                     steps {
-                        sh 'semgrep scan --config="p/javascript" --no-suppress-errors'
+                        script {
+                            def errors = sh(script: 'semgrep scan --config="p/javascript"', returnStatus: true)
+                            if(errors)
+                                error('Vulnerabilities found!')
+                        }
+
                     }
                 }
             }
