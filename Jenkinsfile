@@ -69,19 +69,19 @@ pipeline {
         stage('Analyzing Code') {
             failFast true
             parallel {
-                stage('Code') {
+                stage('OWASP Top 10') {
                     steps {
-                        sh 'semgrep ci --code'
+                        sh 'semgrep scan --config="p/owasp-top-ten"'
                     }
                 }
-                stage('Supply Chain') {
+                stage('Security Vulnerabilities') {
                     steps {
-                        sh 'semgrep ci --supply-chain'
+                        sh 'semgrep scan --config="p/security"'
                     }
                 }
-                stage('Secrets') {
+                stage('React Vulnerabilities') {
                     steps {
-                        sh 'semgrep ci --secrets'
+                        sh 'semgrep scan --config="p/react"'
                     }
                 }
             }
