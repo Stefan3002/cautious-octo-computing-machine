@@ -66,13 +66,42 @@ pipeline {
                 }
             }
         }
+        stage('Install wget') {
+            script {
+                def wgetVersion = sh(script: 'wget --version', returnStatus: true)
+                if (wgetVersion != 0) {
+                    echo 'Installing wget'
+                    sh 'sudo apt install wget'
+                } else {
+                    echo 'Wget already installed'
+                }
+            }
+
+        }
+        stage('Install gnupg') {
+            script {
+                def gnupgVersion = sh(script: 'gnupg --version', returnStatus: true)
+                if (gnupgVersion != 0) {
+                    echo 'Installing gnupg'
+                    sh 'sudo apt install gnupg'
+                } else {
+                    echo 'gnupg already installed'
+                }
+            }
+
+        }
         stage('Install Trivy'){
             steps {
                 script {
                     def trivyVersion = sh(script: 'trivy --version', returnStatus: true)
                     if (trivyVersion != 0) {
                         echo 'Installing Trivy'
-                        sh 'sudo apt install trivy'
+                        sh '''
+                            wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+                            echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+                            sudo apt-get update
+                            sudo apt-get install trivy
+                        '''
                     } else {
                         echo 'Trivy already installed'
                     }
