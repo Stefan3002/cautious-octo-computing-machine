@@ -59,7 +59,7 @@ pipeline {
                     def semgrepVersion = sh(script: 'semgrep -v', returnStatus: true)
                     if (semgrepVersion != 0) {
                         echo 'Installing Semgrep'
-                        sh 'pip3 install semgrep'
+                        sh 'sudo pip3 install semgrep'
                     } else {
                         echo 'Semgrep already installed'
                     }
