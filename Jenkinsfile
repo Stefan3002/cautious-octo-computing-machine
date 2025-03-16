@@ -70,13 +70,19 @@ pipeline {
             failFast true
             parallel {
                 stage('Code') {
-                    sh 'semgrep ci --code'
+                    steps {
+                        sh 'semgrep ci --code'
+                    }
                 }
                 stage('Supply Chain') {
-                    sh 'semgrep ci --supply-chain'
+                    steps {
+                        sh 'semgrep ci --supply-chain'
+                    }
                 }
                 stage('Secrets') {
-                    sh 'semgrep ci --secrets'
+                    steps {
+                        sh 'semgrep ci --secrets'
+                    }
                 }
             }
         }
