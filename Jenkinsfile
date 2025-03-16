@@ -151,8 +151,7 @@ pipeline {
                         emailext (
                             subject: "Trivy Report ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
                             body: "Trivy Report",
-                            attachmentsPattern: 'trivy-report.json',
-                            attachLog: true,
+
                             to: 'secrieru2302@gmail.com'
                         )
                         archiveArtifacts artifacts: 'trivy-report.json'
